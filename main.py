@@ -8,11 +8,11 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route("/radio")
-def radio():
-    r = requests.get("http://localhost:8000/radio.ogg", stream=True)
-    return requests.Response((r.iter_content(chunk_size=1024), mimetype="audio/ogg"))
-
+@app.route("/audio_stream")
+def Audio_Stream():
+    r = requests.get("http://localhost:8000/audio_stream.mp3", stream=True)
+    return Response(r.iter_content(chunk_size=1024), mimetype='audio/mpeg')
 
 if __name__ == "__main__":
-    app.run(debug=True, host="localhost")
+    app.run(debug=True, host="localhost", port=5000)
+
