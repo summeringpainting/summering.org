@@ -13,7 +13,7 @@ def home():
 @app.route("/audio_stream.mp3")
 def Audio_Stream():
     headers = {'Transfer-Encoding': 'chunked'}
-    r = requests.get("http://localhost:8000/radio.mp3", headers=headers, stream=True)
+    r = requests.get("http://ais-edge69-nyc04.cdnstream.com/2263_128.mp3", headers=headers, stream=True)
     return Response(r.iter_content(chunk_size=1024), mimetype='audio/mp3', direct_passthrough=True)
 
 
