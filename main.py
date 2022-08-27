@@ -12,8 +12,9 @@ def home():
 
 @app.route("/audio_stream.mp3")
 def Audio_Stream():
-     r = requests.get("http://localhost:8000/radio.mp3", stream=True)
-     return Response(r.iter_content(chunk_size=1024), mimetype='audio/mp3')
+    headers = {'Transfer-Encoding': 'chunked'}
+    r = requests.get("http://localhost:8000/radio.mp3", headers=headers, stream=True)
+    return Response(r.iter_content(chunk_size=1024), mimetype='audio/mp3', direct_passthrough=True)
 
 
 if __name__ == "__main__":
