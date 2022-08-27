@@ -10,10 +10,10 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/audio_stream")
-def Audio_Stream():
-     r = requests.get("http://localhost:8000/radio.mp3", stream=True)
-     return Response(r.iter_content(chunk_size=1024), mimetype='audio/mp3')
+# @app.route("/audio_stream")
+# def Audio_Stream():
+#      r = requests.get("http://localhost:8000/radio.mp3", stream=True)
+#      return Response(r.iter_content(chunk_size=1024), mimetype='audio/mp3')
 
 
 if __name__ == "__main__":
