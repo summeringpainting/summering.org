@@ -17,8 +17,8 @@ welcome to summering.org!
 this is a pretty <b>awesome</b> site if you haven't already realized.</p><hr>
 
         <h3>our radio! (should use built in audio player)</h3>
-        <audio preload controls controlsList="nodownload">
-            <source src="{{ url_for('Audio_Stream') }}" type="audio/mpeg">
+        <audio controls>
+            <source src="{{ url_for('Audio_Stream') }}" type="audio/mpeg" preload="auto">
         </audio>
         <hr>
 
