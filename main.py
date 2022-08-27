@@ -10,11 +10,12 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/audio_stream.mp3")
-def Audio_Stream():
-    headers = {'Accept-Ranges': 'bytes'}
-    r = requests.get("http://10.0.0.125:8000/radio.mp3", headers=headers, stream=True)
-    return Response(r.iter_content(chunk_size=1), mimetype='audio/mp3', direct_passthrough=True)
+# @app.route("/audio_stream.mp3")
+# def Audio_Stream():
+#     headers = {'Accept-Ranges': 'bytes'}
+#     r = requests.get("http://10.0.0.125:8000/radio.mp3", headers=headers, stream=True)
+#     return Response(r.iter_content(chunk_size=1024), mimetype='audio/mp3', direct_passthrough=True)
+
 
 
 if __name__ == "__main__":
