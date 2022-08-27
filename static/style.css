@@ -3,7 +3,6 @@ pre,body,h1,h2,h3,h4,h5,h6,p,div {
 }
 
 body {
-    font-size:150%;
-    font-size: calc(1rem + 1vw);
+    font-size: calc(.8rem + .5vw);
 }
 
