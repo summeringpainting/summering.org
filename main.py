@@ -10,10 +10,10 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/audio_stream.webm")
+@app.route("/audio_stream.opus")
 def Audio_Stream():
     headers = {'Accept-Ranges': 'bytes'}
-    r = requests.get("http://10.0.0.125:8000/radio.webm", headers=headers, stream=True)
+    r = requests.get("http://10.0.0.125:8000/radio.opus", headers=headers, stream=True)
     return Response(r.iter_content(chunk_size=1024), mimetype='audio/mp3', direct_passthrough=True)
 
 
