@@ -20,6 +20,12 @@ this is a pretty <b>awesome</b> site if you haven't already realized.</p><hr>
         <audio controls>
             <source src="{{ url_for('Audio_Stream') }}" type="audio/mp3" preload="auto">
         </audio>
+        <div class="metadata-wrapper">
+            <div class="metadata">
+                <h3>You're listening to: [Super epic jinja code here]</h3>
+            </div>
+        </div>
+        
         <table class="stats">
             <tbody>
                 {% for row in stats %}
