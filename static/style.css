@@ -11,11 +11,12 @@ body {
 
 
 .metadata-wrapper {
-    background-color: lightskyblue;
+    background-color: blue;
     padding: 1rem;
     border-radius: 1rem;
 }
 .metadata {
     padding: 1rem;
-    
+    background-color: rgba(231, 231, 231, 0.48);
+    border-radius: 1rem;
 }
