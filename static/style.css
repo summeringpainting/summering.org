@@ -1,19 +1,14 @@
 pre,h1,h2,h3,h4,h5,h6,p,div {
     font-family: monospace;
-<<<<<<< Updated upstream
     color: white;
-=======
     margin: 0;
-
->>>>>>> Stashed changes
 }
 
 body {
     font-size: calc(.8rem + .5vw);
     background-color: #121212;
 }
-<<<<<<< Updated upstream
-=======
+
 
 .metadata-wrapper {
     background-color: lightskyblue;
@@ -24,5 +19,3 @@ body {
     padding: 1rem;
     
 }
-
->>>>>>> Stashed changes
