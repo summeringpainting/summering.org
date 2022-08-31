@@ -7,15 +7,23 @@ from dotenv import load_dotenv, find_dotenv
 import eyed3
 import eyed3.plugins
 import subprocess
-from PIL import Image
-import PIL
-# from fnmatch import fnmatch
-# from ..id3.frames import ImageFrame
+import base64
 
 
 load_dotenv(find_dotenv())
 
 app = Flask(__name__)
+
+
+@app.route('/api/cover')
+def get_cover():
+    data = {}
+    with open('/tmp/FRONT_COVER.jpg', mode='rb') as file:
+        img = file.read()
+    data['img'] = base64.encodebytes(img).decode('utf-8')
+    os.system("rm /tmp/FRONT_COVER.jpg")
+    return new Response(json.dumps(data), status=200, mimetype="application/json")
+
 
 @app.route('/api/getmetadata')
 def getmetadata():
@@ -34,31 +42,33 @@ def getmetadata():
     test = subprocess.run(['find', os.getenv("MUSIC_DIR"), '-name', f'{file}',
                            '-print'], stdout=subprocess.PIPE).stdout.decode('utf-8')
     test = test.strip()
+    os.system(f"eyeD3 --write-images=/tmp {test}")
     print(test)
     print(file)
     try:
-        
         tag = eyed3.load(test)
         md["title"] = tag.tag.title
         md["artist"] = tag.tag.artist
         md["album"] = tag.tag.album
         md["album_artist"] = tag.tag.album_artist
         md["genre"] = tag.tag.genre.name
+        md["album_cover"] = im1
         print("Title:", tag.tag.title)
         print("Artist:", tag.tag.artist)
         print("Album:", tag.tag.album)
         print("Album artist:", tag.tag.album_artist)
         print("Genre:", tag.tag.genre.name)
-
         print(tag)
-        # print(eyed3.plugins.art.ArtFile(test))
         return Response(json.dumps(md, indent = 4), status=200, mimetype='application/json')
     except (FileNotFoundError, OSError):
         print("ERROR >> eyed3 couldn't even find your music file :|")
         return Response("{'res':'Great! You broke it (eyed3 couldnt find music file)'}", status=404, mimetype='application/json')
 
+
+
 @app.route('/')
 def home():
+    """Home."""
     return render_template("index.html")
 
 
