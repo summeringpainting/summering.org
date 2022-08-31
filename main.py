@@ -32,6 +32,7 @@ def get_cover():
                            '-print'], stdout=subprocess.PIPE).stdout.decode('utf-8')
     test = test.strip()
     test = test.replace(' ', r'\ ')
+    test = test.replace("'", r"\'")
     print(f"tester is {test}")
     os.system(f"eyeD3 --write-images=/tmp {test}")
     data = {}
