@@ -1,9 +1,51 @@
-pre,body,h1,h2,h3,h4,h5,h6,p,div {
+pre,body,h1,h3,h4,h5,h6,p,div {
     font-family: monospace;
     color: white;
+    margin: 0.5rem;
 }
 
 body {
     font-size: calc(.8rem + .5vw);
     background-color: #121212;
+}
+
+#radioplayer_wrapper {
+    border-radius: 1rem;
+    width: fit-content;
+    background-color: #1e1e1e;
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+#radioplayer_wrapper > * {
+    margin: 0;
+}
+#albumcover {
+    /* height: 148px; */
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+#radioplayer > audio {
+    margin: 1rem 0 0 0;
+}
+.info {
+    margin: 0;
+}
+.info > h2 {
+    margin: 0;
+}
+
+
+
+#title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: fit-content;
+    gap: 1rem;
+}
+#title > h1,p {
+    margin: 0;
 }

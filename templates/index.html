@@ -9,20 +9,32 @@
 <link rel="stylesheet" href="static/style.css">
 </head>
     <body>
-        <h2>summering</h2>
-        <h3>welcome!</h3>
+        <div id="title">
+        <h1>summering</h1>
+        <p>welcome!</p>
+        </div>
         <hr>
 
         <p>
 welcome to summering.org! 
 this is a pretty <b>awesome</b> site if you haven't already realized.</p><hr>
 
-        <h3>our radio! (should use built in audio player)</h3>
-        <audio controls>
-            <source src="{{ url_for('Audio_Stream') }}" type="audio/mp3" preload="auto">
-        </audio>
-        <h3 id="Title">No title</h3>
-        <h4 id="Artist">by No artist</h4>
+        <h3>our radio! (should use MY SICK AWESOME AUDIO PLAYER that uses the build in one)</h3>
+        
+        <div id="radioplayer_wrapper">
+            <img src="static/images/PLACEHOLDER.webp" id="albumcover">
+            <div id="radioplayer">
+                
+                <div class="info">
+                    <h2 id="Title">No title</h2>
+                    <p id="Artist">No artist</p>
+                    <p id="Album">from No album</p>
+                </div>
+                <audio controls>
+                    <source src="{{ url_for('Audio_Stream') }}" type="audio/mp3" preload="auto">
+                </audio> 
+            </div>
+        </div>
 
 
         <hr>
