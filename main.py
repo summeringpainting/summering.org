@@ -22,7 +22,7 @@ def get_cover():
         img = file.read()
     data['img'] = base64.encodebytes(img).decode('utf-8')
     os.system("rm /tmp/FRONT_COVER.jpg")
-    return new Response(json.dumps(data), status=200, mimetype="application/json")
+    return Response(json.dumps(data), status=200, mimetype="application/json")
 
 
 @app.route('/api/getmetadata')
