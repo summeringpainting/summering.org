@@ -31,7 +31,7 @@ def get_cover():
     for row in soup.find_all('tr'):
         stats.append(row.get_text())
     print("6")
-    file = stats[9].split(":")[1]
+    file = stats[8].split(":")[1]
     file = f'{file}.mp3'
     file = file.replace(' ', r'\ ')
     file = file.replace("'", r"\'")
@@ -67,7 +67,7 @@ def getmetadata():
     md = {}
     for row in soup.find_all('tr'):
         stats.append(row.get_text())
-    file = stats[9].split(":")[1]
+    file = stats[8].split(":")[1]
     file = f'{file}.mp3'
     file = file.replace(' ', r'\ ')
     file = file.replace("'", r"\'")
@@ -92,7 +92,7 @@ def getmetadata():
                         status=200, mimetype='application/json')
     except (FileNotFoundError, OSError):
         print("ERROR >> eyed3 couldn't even find your music file :|")
-        return Response("{'res':'Great! You broke it (eyed3 couldnt find music file)'}",
+        return Response("{res:'Great You broke it (eyed3 couldnt find music file)'}",
                         status=404, mimetype='application/json')
 
 
