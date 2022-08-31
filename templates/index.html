@@ -21,15 +21,8 @@ this is a pretty <b>awesome</b> site if you haven't already realized.</p><hr>
         <audio controls>
             <source src="{{ url_for('Audio_Stream') }}" type="audio/mp3" preload="auto">
         </audio>
-        <table class="stats">
-            <tbody>
-                {% for row in stats %}
-                <tr>
-                    <td>{{ row }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <h3 id="Title">No title</h3>
+        <h4 id="Artist">by No artist</h4>
 
 
         <hr>
@@ -43,5 +36,6 @@ I paint houses and code.</p>
 <b>Dexah -></b>
   Hi, I'm Dexah (or Dexter) and i like coding! I'm 11 and this is my dad and I's site!</p>
 
+        <script src="static/script.js"></script>
     </body>
 </html>
