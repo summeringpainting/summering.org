@@ -1,29 +1,77 @@
 from flask import Flask, render_template, Response
 import requests
 from bs4 import BeautifulSoup
+import os
+import json
+from dotenv import load_dotenv, find_dotenv
+import eyed3
+import eyed3.plugins.art
+import subprocess
+from PIL import Image
+import PIL
+# from fnmatch import fnmatch
+# from ..id3.frames import ImageFrame
+
+
+load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 
-
-@app.route('/')
-def home():
-    statsurl = "http://10.0.0.125:8000/status.xsl"
+@app.route('/api/getmetadata')
+def getmetadata():
+    """Root with radio. Use bs4 to scrape data off icecast page."""
+    statsurl = os.getenv("STATS_DOMAIN")
     s = requests.get(statsurl).text
     soup = BeautifulSoup(s, 'html.parser')
     stats = []
+    md = {}
     for row in soup.find_all('tr'):
         stats.append(row.get_text())
-    return render_template("index.html", stats=stats)
+    file = stats[9].split(":")[1]
+    file = f'{file}.mp3'
+    file = file.replace(' ', r'\ ')
+    file = file.replace("'", r"\'")
+    test = subprocess.run(['find', os.getenv("MUSIC_DIR"), '-name', f'{file}',
+                           '-print'], stdout=subprocess.PIPE).stdout.decode('utf-8')
+    test = test.strip()
+    print(test)
+    print(file)
+    try:
+        
+        tag = eyed3.load(test)
+        md["title"] = tag.tag.title
+        md["artist"] = tag.tag.artist
+        md["album"] = tag.tag.album
+        md["album_artist"] = tag.tag.album_artist
+        md["genre"] = tag.tag.genre.name
+        print("Title:", tag.tag.title)
+        print("Artist:", tag.tag.artist)
+        print("Album:", tag.tag.album)
+        print("Album artist:", tag.tag.album_artist)
+        print("Genre:", tag.tag.genre.name)
+
+        print(tag)
+        # print(eyed3.plugins.art.ArtFile(test))
+        return Response(json.dumps(md, indent = 4), status=200, mimetype='application/json')
+    except (FileNotFoundError, OSError):
+        print("ERROR >> eyed3 couldn't even find your music file :|")
+        return Response("{'res':'Great! You broke it (eyed3 couldnt find music file)'}", status=404, mimetype='application/json')
+
+@app.route('/')
+def home():
+    return render_template("index.html")
 
 
 @app.route("/audio_stream.mp3")
 def Audio_Stream():
-    streamurl = "http://10.0.0.125:8000/radio.mp3"
+    """Grab the stream from icecast radio."""
+    streamurl = os.getenv("RADIO_DOMAIN")
     headers = {'Accept-Ranges': 'bytes'}
     r = requests.get(streamurl, headers=headers, stream=True)
-    song = Response(r.iter_content(chunk_size=1024), mimetype='audio/mp3', direct_passthrough=True)
+    song = Response(r.iter_content(chunk_size=1024),
+                    mimetype='audio/mp3',
+                    direct_passthrough=True)
     return song
-
 
 
 if __name__ == "__main__":
