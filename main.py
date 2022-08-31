@@ -5,7 +5,7 @@ import os
 import json
 from dotenv import load_dotenv, find_dotenv
 import eyed3
-import eyed3.plugins.art
+import eyed3.plugins
 import subprocess
 from PIL import Image
 import PIL
