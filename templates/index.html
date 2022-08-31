@@ -1,54 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="static/images/favicon.ico" rel="icon" type="image/x-icon" />
-<title>summering</title>
-<link rel="stylesheet" href="static/style.css">
-</head>
-    <body>
-        <div id="title">
-        <h1>summering</h1>
-        <p>welcome!</p>
-        </div>
-        <hr>
-
-        <p>
-welcome to summering.org! 
-this is a pretty <b>awesome</b> site if you haven't already realized.</p><hr>
-
-        <h3>our radio!</h3>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="static/images/favicon.ico" rel="icon" type="image/x-icon" />
+        <title>summering</title>
+        <link rel="stylesheet" href="static/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         
-        <div id="radioplayer_wrapper">
-            <div class="cover_wrapper"><img src="static/images/PLACEHOLDER.webp" id="albumcover"></div>
-            
-            <div id="radioplayer">
+
+    </head>
+    <body>
+        <div id="main">
+            <div id="title" class="card">
+            <h1>summering</h1>
+            <p>welcome!</p>
+            </div>
+            <div class="card">
+                <p>welcome to summering.org! this is a pretty <b>awesome</b> site if you haven't already realized.</p>
+            </div>
+            <div class="card">
+                <h3>our radio!</h3>
                 
-                <div class="info">
-                    <h2 id="Title">No title</h2>
-                    <p id="Artist">No artist</p>
-                    <p id="Album">from No album</p>
+                <div id="radioplayer_wrapper">
+                    <div class="cover_wrapper"><img src="static/images/PLACEHOLDER.webp" id="albumcover"></div>
+                    
+                    <div id="radioplayer">
+                        
+                        <div class="info">
+                            <h2 id="Title">No title</h2>
+                            <p id="Artist">No artist</p>
+                            <p id="Album">from No album</p>
+                        </div>
+                        <audio id="player">
+                            <source id="streamSRC" src="{{ url_for('Audio_Stream') }}" type="audio/mp3" preload="auto">
+                        </audio> 
+                        <div id="controls">
+                            <button id="play/pause"><span class="material-symbols-outlined">
+                                play_arrow
+                                </span></button>
+                            <button id="volUp"><span class="material-symbols-outlined">
+                                volume_up
+                                </span></button>
+                            <button id="volDown"><span class="material-symbols-outlined">
+                                volume_down
+                                </span></button>
+                        </div>
+                    </div>
                 </div>
-                <audio controls>
-                    <source src="{{ url_for('Audio_Stream') }}" type="audio/mp3" preload="auto">
-                </audio> 
+            </div>
+
+            <div class="card">
+                <h3>about us</h3>
+                <p><b>Stephen -></b> I paint houses and code.</p>
+
+                <p><b>Dexah -></b> Hi, I'm Dexah (or Dexter) and i like coding! I'm 11 and this is my dad and I's site!</p>
             </div>
         </div>
-
-
-        <hr>
-
-        <h3>about us</h3>
-        <p>
-<b>Stephen -></b>
-I paint houses and code.</p>
-
-        <p>
-<b>Dexah -></b>
-  Hi, I'm Dexah (or Dexter) and i like coding! I'm 11 and this is my dad and I's site!</p>
-
         <script src="static/script.js"></script>
     </body>
 </html>

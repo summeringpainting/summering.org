@@ -54,7 +54,7 @@ def get_cover():
         with open('static/images/No Album Cover.png', mode='rb') as file:
             img = file.read()
         data['img'] = base64.encodebytes(img).decode('utf-8')
-        return Response(json.dumps(data), status=404)
+        return Response(json.dumps(data), status=200)
 
 
 @app.route('/api/getmetadata')
