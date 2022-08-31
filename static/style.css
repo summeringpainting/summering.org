@@ -1,9 +1,63 @@
-pre,body,h1,h2,h3,h4,h5,h6,p,div {
+pre,body,h1,h3,h4,h5,h6,p,div {
     font-family: monospace;
     color: white;
+    margin: 0.5rem;
 }
 
 body {
     font-size: calc(.8rem + .5vw);
     background-color: #121212;
+}
+
+#radioplayer_wrapper {
+    display: flex;
+    border-radius: 1rem;
+    background-color: #1e1e1e;
+    
+    width: fit-content;
+    min-height: auto;
+    padding: 1rem;
+    grid-auto-flow: row;
+    gap: 1rem;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+#albumcover {
+    border-radius: 1rem;
+    max-width: 200px;
+}
+#radioplayer_wrapper > * {
+    margin: 0;
+}
+#radioplayer > audio {
+    margin: 1rem 0 0 0;
+}
+.info {
+    margin: 0;
+}
+.info > h2 {
+    margin: 0;
+}
+
+
+
+#title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: fit-content;
+    gap: 1rem;
+}
+#title > h1,p {
+    margin: 0;
+}
+
+
+
+@media screen and (max-width: 600px) {
+    #radioplayer_wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
 }

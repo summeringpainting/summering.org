@@ -5,7 +5,7 @@ import os
 import json
 from dotenv import load_dotenv, find_dotenv
 import eyed3
-import eyed3.plugins.art
+import eyed3.plugins
 import subprocess
 import base64
 
@@ -14,16 +14,23 @@ load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 
+NoAlbumCoverb64=""
 
 @app.route('/api/cover')
 def get_cover():
     """Root with radio. Use bs4 to scrape data off icecast page."""
+    print("1")
     statsurl = os.getenv("STATS_DOMAIN")
+    print("2")
     s = requests.get(statsurl).text
+    print("3")
     soup = BeautifulSoup(s, 'html.parser')
+    print("4")
     stats = []
+    print("5")
     for row in soup.find_all('tr'):
         stats.append(row.get_text())
+    print("6")
     file = stats[9].split(":")[1]
     file = f'{file}.mp3'
     file = file.replace(' ', r'\ ')
@@ -41,9 +48,13 @@ def get_cover():
             img = file.read()
         data['img'] = base64.encodebytes(img).decode('utf-8')
         os.system("rm /tmp/FRONT_COVER.jpg")
-        return json.dumps(data)
+        return Response(json.dumps(data), status=200)
     except FileNotFoundError:
         print("Not Found")
+        with open('static/images/No Album Cover.png', mode='rb') as file:
+            img = file.read()
+        data['img'] = base64.encodebytes(img).decode('utf-8')
+        return Response(json.dumps(data), status=404)
 
 
 @app.route('/api/getmetadata')
@@ -81,7 +92,7 @@ def getmetadata():
                         status=200, mimetype='application/json')
     except (FileNotFoundError, OSError):
         print("ERROR >> eyed3 couldn't even find your music file :|")
-        return Response("{'res':'Great! You broke it (eyed3 couldnt find music file)'}",
+        return Response("{res:'Great You broke it (eyed3 couldnt find music file)'}",
                         status=404, mimetype='application/json')
 
 
