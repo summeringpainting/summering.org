@@ -18,13 +18,19 @@ app = Flask(__name__)
 @app.route('/api/cover')
 def get_cover():
     """Root with radio. Use bs4 to scrape data off icecast page."""
+    print("1")
     statsurl = os.getenv("STATS_DOMAIN")
+    print("2")
     s = requests.get(statsurl).text
+    print("3")
     soup = BeautifulSoup(s, 'html.parser')
+    print("4")
     stats = []
+    print("5")
     for row in soup.find_all('tr'):
         stats.append(row.get_text())
-    file = stats[9].split(":")[1]
+    print("6")
+    file = stats[8].split(":")[1]
     file = f'{file}.mp3'
     file = file.replace(' ', r'\ ')
     file = file.replace("'", r"\'")
@@ -36,22 +42,14 @@ def get_cover():
     print(f"tester is {test}")
     os.system(f"eyeD3 --write-images=/tmp {test}")
     data = {}
-<<<<<<< HEAD
-    with open('/tmp/FRONT_COVER.jpg', mode='rb') as file:
-        img = file.read()
-    data['img'] = base64.encodebytes(img).decode('utf-8')
-    os.system("rm /tmp/FRONT_COVER.jpg")
-    return Response(json.dumps(data), status=200, mimetype="application/json")
-=======
     try:
         with open('/tmp/FRONT_COVER.jpg', mode='rb') as file:
             img = file.read()
         data['img'] = base64.encodebytes(img).decode('utf-8')
         os.system("rm /tmp/FRONT_COVER.jpg")
-        return json.dumps(data)
+        return Response(json.dumps(data), status=200)
     except FileNotFoundError:
         print("Not Found")
->>>>>>> 91316d73b9930a9885a36499eb9da29ac868f768
 
 
 @app.route('/api/getmetadata')
