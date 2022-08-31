@@ -14,6 +14,7 @@ load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 
+NoAlbumCoverb64=""
 
 @app.route('/api/cover')
 def get_cover():
@@ -50,6 +51,10 @@ def get_cover():
         return Response(json.dumps(data), status=200)
     except FileNotFoundError:
         print("Not Found")
+        with open('static/images/No Album Cover.png', mode='rb') as file:
+            img = file.read()
+        data['img'] = base64.encodebytes(img).decode('utf-8')
+        return Response(json.dumps(data), status=404)
 
 
 @app.route('/api/getmetadata')
