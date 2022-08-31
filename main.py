@@ -27,7 +27,7 @@ def getmetadata():
     md = {}
     for row in soup.find_all('tr'):
         stats.append(row.get_text())
-    file = stats[8].split(":")[1]
+    file = stats[9].split(":")[1]
     file = f'{file}.mp3'
     file = file.replace(' ', r'\ ')
     file = file.replace("'", r"\'")
