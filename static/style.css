@@ -38,6 +38,7 @@ body {
 
 #radioplayer {
     display: flex;
+    display: -moz-flex;
     flex-direction: column;
     gap: 0.5rem;
 }
