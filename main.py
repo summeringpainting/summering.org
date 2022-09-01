@@ -37,6 +37,7 @@ def get_cover():
     file = f'{file}.mp3'
     file = file.replace(' ', r'\ ')
     file = file.replace("'", r"\'")
+    file = file.replace("&", r"\&")
     print(f"FILE IS: {file}")
     test = subprocess.run(['find', os.getenv("MUSIC_DIR"), '-name', f'{file}',
                            '-print'], stdout=subprocess.PIPE).stdout.decode('utf-8')
@@ -45,6 +46,7 @@ def get_cover():
     test = test.replace(')', r'\)')
     test = test.replace(' ', r'\ ')
     test = test.replace("'", r"\'")
+    test = test.replace(r"&", r"\&")
     print(test)
     print(f"tester is {test}")
     os.system(f"eyeD3 --write-images=/tmp {test}")
@@ -88,12 +90,12 @@ def getmetadata():
         md["album_artist"] = tag.tag.album_artist
         md["genre"] = tag.tag.genre.name
 
-        print("Title:", tag.tag.title)
-        print("Artist:", tag.tag.artist)
-        print("Album:", tag.tag.album)
-        print("Album artist:", tag.tag.album_artist)
-        print("Genre:", tag.tag.genre.name)
-        print(tag)
+        # print("Title:", tag.tag.title)
+        # print("Artist:", tag.tag.artist)
+        # print("Album:", tag.tag.album)
+        # print("Album artist:", tag.tag.album_artist)
+        # print("Genre:", tag.tag.genre.name)
+        # print(tag)
         return Response(json.dumps(md, indent=4),
                         status=200, mimetype='application/json')
     except (FileNotFoundError, OSError):
@@ -121,4 +123,4 @@ def Audio_Stream():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="10.0.0.147", port=5000)
+    app.run(debug=True, host="127.0.0.1", port=5000)
