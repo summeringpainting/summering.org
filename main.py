@@ -50,12 +50,6 @@ def get_cover():
     os.system(f"eyeD3 --write-images=/tmp {test}")
     data = {}
     try:
-        basewidth = 300
-        img = Image.open('/tmp/FRONT_COVER.jpg')
-        wpercent = (basewidth/float(img.size[0]))
-        hsize = int((float(img.size[1])*float(wpercent)))
-        img = img.resize((basewidth, hsize), Image.ANTIALIAS)
-        img.save('/tmp/FRONT_COVER.jpg')
         with open('/tmp/FRONT_COVER.jpg', mode='rb') as file:
             img = file.read()
         data['img'] = base64.encodebytes(img).decode('utf-8')
@@ -127,4 +121,4 @@ def Audio_Stream():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="localhost", port=5000)
+    app.run(debug=True, host="10.0.0.147", port=5000)
