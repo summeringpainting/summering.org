@@ -8,13 +8,15 @@ import eyed3
 import eyed3.plugins
 import subprocess
 import base64
+from PIL import Image
 
 
 load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 
-NoAlbumCoverb64=""
+NoAlbumCoverb64 = ""
+
 
 @app.route('/api/cover')
 def get_cover():
@@ -35,6 +37,7 @@ def get_cover():
     file = f'{file}.mp3'
     file = file.replace(' ', r'\ ')
     file = file.replace("'", r"\'")
+    print(f"FILE IS: {file}")
     test = subprocess.run(['find', os.getenv("MUSIC_DIR"), '-name', f'{file}',
                            '-print'], stdout=subprocess.PIPE).stdout.decode('utf-8')
     test = test.strip()
@@ -47,6 +50,12 @@ def get_cover():
     os.system(f"eyeD3 --write-images=/tmp {test}")
     data = {}
     try:
+        basewidth = 300
+        img = Image.open('/tmp/FRONT_COVER.jpg')
+        wpercent = (basewidth/float(img.size[0]))
+        hsize = int((float(img.size[1])*float(wpercent)))
+        img = img.resize((basewidth, hsize), Image.ANTIALIAS)
+        img.save('/tmp/FRONT_COVER.jpg')
         with open('/tmp/FRONT_COVER.jpg', mode='rb') as file:
             img = file.read()
         data['img'] = base64.encodebytes(img).decode('utf-8')
