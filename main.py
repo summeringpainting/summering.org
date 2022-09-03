@@ -8,7 +8,6 @@ import eyed3
 import eyed3.plugins
 import subprocess
 import base64
-from PIL import Image
 
 
 load_dotenv(find_dotenv())
@@ -16,6 +15,8 @@ load_dotenv(find_dotenv())
 app = Flask(__name__)
 
 NoAlbumCoverb64 = ""
+
+HOSTER = os.getenv("HOST")
 
 
 @app.route('/api/cover')
@@ -129,4 +130,4 @@ def Audio_Stream():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host=f"{os.getenv('HOST')}", port=5000)
+    app.run(debug=True, host=f"{HOSTER}", port=5000)
