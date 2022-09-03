@@ -33,7 +33,7 @@ def get_cover():
     for row in soup.find_all('tr'):
         stats.append(row.get_text())
     print("6")
-    file = stats[8].split(":")[1]
+    file = stats[9].split(":")[1]
     file = f'{file}.mp3'
     file = file.replace(' ', r'\ ')
     file = file.replace("'", r"\'")
@@ -75,7 +75,7 @@ def getmetadata():
     md = {}
     for row in soup.find_all('tr'):
         stats.append(row.get_text())
-    file = stats[8].split(":")[1]
+    file = stats[9].split(":")[1]
     file = f'{file}.mp3'
     file = file.replace(' ', r'\ ')
     file = file.replace("'", r"\'")
@@ -129,4 +129,4 @@ def Audio_Stream():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="10.0.0.195", port=5000)
+    app.run(debug=True, host=os.getenv("HOST"), port=5000)
