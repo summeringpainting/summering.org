@@ -130,4 +130,4 @@ def Audio_Stream():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host=f"{HOSTER}", port=5000)
+    app.run(debug=True, host=HOSTER, port=5000)
