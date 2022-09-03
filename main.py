@@ -16,8 +16,6 @@ app = Flask(__name__)
 
 NoAlbumCoverb64 = ""
 
-# HOSTER = os.getenv("HOST")
-
 
 @app.route('/api/cover')
 def get_cover():
@@ -130,4 +128,4 @@ def Audio_Stream():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="10.0.0.125", port=5000)
+    app.run(debug=True, host="localhost", port=5000)
