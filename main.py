@@ -33,7 +33,7 @@ def get_cover():
     for row in soup.find_all('tr'):
         stats.append(row.get_text())
     print("6")
-    file = stats[9].split(":")[1]
+    file = stats[8].split(":")[1]
     file = f'{file}.mp3'
     file = file.replace(' ', r'\ ')
     file = file.replace("'", r"\'")
@@ -75,7 +75,7 @@ def getmetadata():
     md = {}
     for row in soup.find_all('tr'):
         stats.append(row.get_text())
-    file = stats[9].split(":")[1]
+    file = stats[8].split(":")[1]
     file = f'{file}.mp3'
     file = file.replace(' ', r'\ ')
     file = file.replace("'", r"\'")
@@ -110,6 +110,12 @@ def home():
     return render_template("index.html")
 
 
+@app.route('/page/<page>')
+def page(page):
+    page = page
+    return render_template(f"pages/{page}.html")
+
+
 @app.route("/audio_stream.mp3")
 def Audio_Stream():
     """Grab the stream from icecast radio."""
@@ -123,4 +129,4 @@ def Audio_Stream():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="127.0.0.1", port=5000)
+    app.run(debug=True, host="10.0.0.195", port=5000)
