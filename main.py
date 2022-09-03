@@ -110,6 +110,12 @@ def home():
     return render_template("index.html")
 
 
+@app.route('/page/<page>')
+def page(page):
+    page = page
+    return render_template(f"pages/{page}.html")
+
+
 @app.route("/audio_stream.mp3")
 def Audio_Stream():
     """Grab the stream from icecast radio."""
@@ -123,4 +129,4 @@ def Audio_Stream():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="127.0.0.1", port=5000)
+    app.run(debug=True, host=os.getenv("HOST"), port=5000)
