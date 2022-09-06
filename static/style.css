@@ -173,3 +173,12 @@ a:visited {
         width: 300px;
     }
 }
+
+.form-group {
+    padding: 10px 0px 10px 0px;
+}
+
+.form {
+    padding-bottom: 10px;
+}
+

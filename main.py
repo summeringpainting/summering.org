@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, redirect
 import requests
 from bs4 import BeautifulSoup
 import os
@@ -8,13 +8,34 @@ import eyed3
 import eyed3.plugins
 import subprocess
 import base64
+from flask_wtf import FlaskForm
+from wtforms.validators import DataRequired, Email
+from wtforms import StringField, SubmitField, validators
+from flask_ckeditor import CKEditor, CKEditorField
+from flask_bootstrap import Bootstrap
+import sys
+import yagmail
 
 
 load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 
+
+# Create random secret key
+SECRET_KEY = os.urandom(32)
+app.config['SECRET_KEY'] = SECRET_KEY
+ckeditor = CKEditor(app)
+Bootstrap(app)
+
 NoAlbumCoverb64 = ""
+
+class contactForm(FlaskForm):
+    name = StringField(label='Name', validators=[DataRequired()])
+    email = StringField(
+        label='Email', validators=[DataRequired(), Email(granular_message=True)])
+    message = CKEditorField('')
+    submit = SubmitField(label="Send")
 
 
 @app.route('/api/cover')
@@ -103,10 +124,34 @@ def getmetadata():
                         status=404, mimetype='application/json')
 
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def home():
     """Home."""
     return render_template("index.html")
+
+
+@app.route('/contact', methods=["GET", "POST"])
+def contact():
+    """Contact Form with WTF."""
+    cform = contactForm()
+    if cform.validate_on_submit():
+        user = 'clownworldremix@gmail.com'
+        app_password = 'tbqqxfasxkvcchik' # a token for gmail
+        to = ['summeringpainting@gmail.com', 'satosummering@outlook.com']
+
+        subject = f"Name:{cform.name.data}, E-mail:{cform.email.data},"
+        content = [f"message:{cform.message.data}"]
+
+        with yagmail.SMTP(user, app_password) as yag:
+            yag.send(to, subject, content)
+            print('Sent email successfully')
+        return redirect('/')
+
+
+            #     with open("testy.txt", "w") as f:
+            # print(f"Name:{cform.name.data}, E-mail:{cform.email.data},"
+            #       f"message:{cform.message.data}")
+    return render_template("contact.html", form=cform)
 
 
 @app.route('/page/<page>')
