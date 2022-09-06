@@ -136,11 +136,7 @@ def contact():
     cform = contactForm()
     if cform.validate_on_submit():
         user = 'clownworldremix@gmail.com'
-<<<<<<< HEAD
         app_password = os.getenv('YAG_MAIL') # a token for gmail
-=======
-        app_password = YAG_PW # a token for gmail
->>>>>>> ba8e9e67c7275f270fe6e54f239d016bada53b4d
         to = ['summeringpainting@gmail.com', 'satosummering@outlook.com']
 
         subject = f"Name:{cform.name.data}, E-mail:{cform.email.data},"
